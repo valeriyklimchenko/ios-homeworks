@@ -14,4 +14,5 @@ struct Post {
     
 }
 
+//Создаем объект Post, который мы перелали и отобразили в FeedViewController
 let post = Post(title: "TitleFromPost")

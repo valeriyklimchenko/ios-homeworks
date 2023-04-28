@@ -8,7 +8,8 @@
 import UIKit
 
 class InfoViewController: UIViewController {
-  
+    
+    //Создаем айлерт
     private lazy var alertButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -28,40 +29,40 @@ class InfoViewController: UIViewController {
         view.addSubview(alertButton)
         
         let safeAreaLayoutGuide = view.safeAreaLayoutGuide
-                NSLayoutConstraint.activate([
-                    alertButton.leadingAnchor.constraint(
-                        equalTo: safeAreaLayoutGuide.leadingAnchor,
-                        constant: 20.0
-                    ),
-                    alertButton.trailingAnchor.constraint(
-                        equalTo: safeAreaLayoutGuide.trailingAnchor,
-                        constant: -20.0
-                    ),
-                    alertButton.centerYAnchor.constraint(equalTo: safeAreaLayoutGuide.centerYAnchor),
-                    alertButton.heightAnchor.constraint(equalToConstant: 44.0)
-                ])
+        NSLayoutConstraint.activate([
+            alertButton.leadingAnchor.constraint(
+                equalTo: safeAreaLayoutGuide.leadingAnchor,
+                constant: 20.0
+            ),
+            alertButton.trailingAnchor.constraint(
+                equalTo: safeAreaLayoutGuide.trailingAnchor,
+                constant: -20.0
+            ),
+            alertButton.centerYAnchor.constraint(equalTo: safeAreaLayoutGuide.centerYAnchor),
+            alertButton.heightAnchor.constraint(equalToConstant: 44.0)
+        ])
         
         
-        alertButton.addTarget(self, action: #selector(showPost), for: .touchUpInside)
+        alertButton.addTarget(self, action: #selector(showAlert), for: .touchUpInside)
         
     }
     
-    @objc func showPost() {
-        
-        let PostviewController = PostviewController()
-        
-        navigationController?.pushViewController(PostviewController, animated: true)
-        
+    @objc func showAlert() {
+        //Создаем айлерт
         let alert = UIAlertController(title: "My Alert", message: "This is an alert.", preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "ok action"), style: .default, handler: { _ in
-        NSLog("The 'Ok' alert occured.")
-        }))
+        //Действия при нажатии (сообщение в консоли)
+        let okAction = UIAlertAction(title: "OK", style: .default) { (_) in
+            print("The 'Ok' alert occured.")
+        }
         
-        alert.addAction(UIAlertAction(title: NSLocalizedString("Cansel", comment: "Default action"), style: .default, handler: { _ in
-        NSLog("The 'Cansel' alert occured.")
-        }))
+        let cancelAction = UIAlertAction(title: "Отмена", style: .cancel) { (_) in
+            print("The 'Cansel' alert occured.")
+        }
+        
+        alert.addAction(okAction)
+        alert.addAction(cancelAction)
         
         self.present(alert, animated: true, completion: nil)
-    
+        
     }
 }
