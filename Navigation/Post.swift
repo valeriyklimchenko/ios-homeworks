@@ -7,10 +7,11 @@
 
 import UIKit
 
+//Создаем структуру типа Post
 struct Post {
     
     var title: String
     
 }
 
-let post = Post(title: "PostTitle")
+let post = Post(title: "TitleFromPost")

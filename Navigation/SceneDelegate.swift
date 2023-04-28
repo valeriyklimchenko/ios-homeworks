@@ -21,12 +21,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 //        Создаем навигационные контроллеры и устанавливаем для них корневые контентные контроллеры
         let profileViewController = UINavigationController(rootViewController: ProfileViewController())
         profileViewController.title = "Profile"
-        profileViewController.view.backgroundColor = .systemGray
         profileViewController.tabBarItem.image = UIImage(systemName: "person.fill")
     
         let feedViewController = UINavigationController(rootViewController: FeedViewController())
         feedViewController.title = "Tape"
-        feedViewController.view.backgroundColor = .systemMint
         feedViewController.tabBarItem.image = UIImage(systemName: "eye")
         
 //        Создаем TabBAr
@@ -38,6 +36,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
 //        Устанавливаем TabBar в качестве корневого
         window.rootViewController = tabBarController
+
         
 //        Делаем окно главным и видимым
         window.makeKeyAndVisible()

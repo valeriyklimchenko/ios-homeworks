@@ -13,8 +13,8 @@ class ProfileViewController: UIViewController {
         super.viewDidLoad()
         
         view.backgroundColor = .systemCyan
-//        title = "Profile"
-        title = FeedViewController().postTitle.title
+        
+        title = "Profile"
 
     }
 }
