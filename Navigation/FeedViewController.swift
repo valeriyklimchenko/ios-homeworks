@@ -9,6 +9,7 @@ import UIKit
 
 class FeedViewController: UIViewController {
     
+    //MARK: subviews
     //Создаем кнопку перехода в PostviewController
     private lazy var postButton: UIButton = {
         let button = UIButton()
@@ -17,6 +18,9 @@ class FeedViewController: UIViewController {
         button.setTitleColor(.systemIndigo, for: .normal)
         button.setTitleShadowColor(.systemRed, for: .normal)
         button.clipsToBounds = true
+        
+        button.addTarget(self, action: #selector(showPost), for: .touchUpInside)
+        
         return button
         
     }()
@@ -24,32 +28,29 @@ class FeedViewController: UIViewController {
     //    Создаем объект типа Post в FeedViewController
     let postTitle: Post = Post(title: "PostTitle2")
     
+    //MARK: life cycle
     //Переопределяем родительский метод viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
         
         view.backgroundColor = .systemCyan
         title = "Feed"
-        
+        layout()
     }
     
-    //Переопределяем родительский метод viewDidLayoutSubviews для добавления сабвью
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        
+    //MARK: private
+    private func layout() {
         view.addSubview(postButton)
-        
+
         NSLayoutConstraint.activate([
             postButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             postButton.centerYAnchor.constraint(equalTo: view.centerYAnchor),
             postButton.heightAnchor.constraint(equalToConstant: 50),
             postButton.widthAnchor.constraint(equalToConstant: 100)
         ])
-        
-        postButton.addTarget(self, action: #selector(showPost), for: .touchUpInside)
-        
     }
     
+    //MARK: actions
     //Описываем действие по кнопке
     @objc func showPost() {
         //При обработке нажатия создается экземпляр класса ProfileViewController()

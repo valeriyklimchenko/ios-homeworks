@@ -9,6 +9,7 @@ import UIKit
 
 class InfoViewController: UIViewController {
     
+    //MARK: subviews
     //Создаем айлерт
     private lazy var alertButton: UIButton = {
         let button = UIButton()
@@ -20,6 +21,7 @@ class InfoViewController: UIViewController {
         return button
     }()
     
+    //MARK: life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -47,6 +49,7 @@ class InfoViewController: UIViewController {
         
     }
     
+    //MARK: actions
     @objc func showAlert() {
         //Создаем айлерт
         let alert = UIAlertController(title: "My Alert", message: "This is an alert.", preferredStyle: .alert)

@@ -3,7 +3,7 @@ import UIKit
 class PostviewController: UIViewController {
     
     
-    
+    //MARK: life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -18,6 +18,7 @@ class PostviewController: UIViewController {
         navigationItem.rightBarButtonItem = infoButton
     }
     
+    //MARK: actions
     //infoButton содержит обработчик нажатия на себя. При нажатии на кнопку сработает метод ButtonPressed и вызовется нижеуказанный код
     
     @objc func  showInfo() {
