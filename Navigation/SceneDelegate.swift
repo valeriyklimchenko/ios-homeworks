@@ -25,14 +25,16 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         let feedViewController = UINavigationController(rootViewController: FeedViewController())
         feedViewController.title = "Tape"
-        feedViewController.tabBarItem.image = UIImage(systemName: "eye")
+        feedViewController.tabBarItem.image = UIImage(systemName: "house.fill")
         
         //Создаем TabBAr
         let tabBarController = UITabBarController()
+//        tabBarController.viewControllers = [feedViewController ,profileViewController]
         tabBarController.viewControllers = [profileViewController, feedViewController]
+
         tabBarController.tabBarItem.title = "title"
-        tabBarController.tabBar.backgroundColor = UIColor.systemIndigo
-        tabBarController.tabBar.tintColor = UIColor.white
+        tabBarController.tabBar.backgroundColor = UIColor.systemGray6
+        tabBarController.tabBar.tintColor = UIColor.systemBlue
         
         //Устанавливаем TabBar в качестве корневого
         window.rootViewController = tabBarController
