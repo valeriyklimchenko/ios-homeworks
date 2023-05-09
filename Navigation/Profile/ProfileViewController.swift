@@ -37,4 +37,6 @@ class ProfileViewController: UIViewController {
             profileHeaderView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
     }
+    
 }
+

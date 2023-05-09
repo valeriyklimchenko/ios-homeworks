@@ -47,6 +47,7 @@ class ProfileHeaderView: UIView {
         field.backgroundColor = .white
         field.layer.cornerRadius = 12
         field.layer.borderWidth = 1
+        field.indent(size: 10)
         field.layer.borderColor = UIColor.black.cgColor
         field.font = UIFont.systemFont(ofSize: 15, weight: .regular, width: .standard)
         field.translatesAutoresizingMaskIntoConstraints = false
@@ -140,4 +141,11 @@ class ProfileHeaderView: UIView {
         statusText = statusTextField.text!
     }
     
+}
+
+extension UITextField {
+    func indent(size:CGFloat) {
+        self.leftView = UIView(frame: CGRect(x: self.frame.minX, y: self.frame.minY, width: size, height: self.frame.height))
+        self.leftViewMode = .always
+    }
 }
