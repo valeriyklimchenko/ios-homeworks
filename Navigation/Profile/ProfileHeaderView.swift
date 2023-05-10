@@ -40,7 +40,7 @@ class ProfileHeaderView: UIView {
         return label
     }()
     
-    private let statusTextField: UITextField = {
+    private lazy var statusTextField: UITextField = {
         let field = UITextField()
         field.text = ""
         field.textColor = .black
@@ -52,7 +52,7 @@ class ProfileHeaderView: UIView {
         field.font = UIFont.systemFont(ofSize: 15, weight: .regular, width: .standard)
         field.translatesAutoresizingMaskIntoConstraints = false
         
-        field.addTarget(self, action: #selector(changeStatus), for: .editingChanged)
+        field.addTarget(self, action: #selector(changeStatus), for: .editingChanged)    //Использую lazy чтобы здесь не было ошибки
         
         return field
     }()
@@ -63,7 +63,7 @@ class ProfileHeaderView: UIView {
         button.layer.cornerRadius = 4
         button.setTitle("Show status", for: .normal)
         button.setTitleColor(.white, for: .normal)
-        button.setTitleColor(.yellow, for: .focused)    //Подскажите пожалуйста, почему при наведении цвет не меняется на оранж
+        button.setTitleColor(.yellow, for: .focused)
         button.layer.cornerRadius = 4
         button.setTitleColor(.yellow, for: .selected)
         button.layer.shadowColor = UIColor.black.cgColor
@@ -133,7 +133,8 @@ class ProfileHeaderView: UIView {
     @objc func setStatus() {
         if statusText != "" {
             statusTextLabel.text = statusText
-            statusTextField.text = ""
+//            statusTextField.text = ""
+            print(statusTextField.text ?? "")
         }
     }
     
