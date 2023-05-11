@@ -42,12 +42,12 @@ class ProfileHeaderView: UIView {
     
     private lazy var statusTextField: UITextField = {
         let field = UITextField()
-        field.text = ""
         field.textColor = .black
         field.backgroundColor = .white
         field.layer.cornerRadius = 12
         field.layer.borderWidth = 1
         field.indent(size: 10)
+        field.placeholder = "Enter status"
         field.layer.borderColor = UIColor.black.cgColor
         field.font = UIFont.systemFont(ofSize: 15, weight: .regular, width: .standard)
         field.translatesAutoresizingMaskIntoConstraints = false
