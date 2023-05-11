@@ -15,14 +15,39 @@ class FeedViewController: UIViewController {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle("Post", for: .normal)
+        button.layer.borderColor = UIColor.systemBlue.cgColor
+        button.layer.borderWidth = 3
+        button.backgroundColor = .systemGray3
         button.setTitleColor(.systemIndigo, for: .normal)
-        button.setTitleShadowColor(.systemRed, for: .normal)
-        button.clipsToBounds = true
-        
+        button.layer.cornerRadius = 20
+        button.layer.shadowOffset = CGSize(width: 10, height: 10)
+        button.layer.shadowOpacity = 1
+        button.layer.shadowRadius = 30
+        button.layer.shadowColor = UIColor.systemIndigo.cgColor
         button.addTarget(self, action: #selector(showPost), for: .touchUpInside)
-        
         return button
-        
+    }()
+    
+    private lazy var postButton2: UIButton = {
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setTitle("Post", for: .normal)
+        button.layer.borderColor = UIColor.systemBlue.cgColor
+        button.layer.borderWidth = 3
+        button.backgroundColor = .systemGray5
+        button.setTitleColor(.systemIndigo, for: .normal)
+        button.addTarget(self, action: #selector(showPost), for: .touchUpInside)
+        return button
+    }()
+    
+    private lazy var stackView: UIStackView = {
+        let stack = UIStackView()
+        stack.translatesAutoresizingMaskIntoConstraints = false
+        stack.backgroundColor = view.backgroundColor
+        stack.spacing = 10
+        stack.axis = .vertical
+        stack.distribution = .fillEqually
+        return stack
     }()
     
     //    Создаем объект типа Post в FeedViewController
@@ -40,14 +65,18 @@ class FeedViewController: UIViewController {
     
     //MARK: private
     private func layout() {
-        view.addSubview(postButton)
+        view.addSubview(stackView)
+        stackView.addArrangedSubview(postButton)
+        stackView.addArrangedSubview(postButton2)
 
         NSLayoutConstraint.activate([
-            postButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            postButton.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-            postButton.heightAnchor.constraint(equalToConstant: 50),
-            postButton.widthAnchor.constraint(equalToConstant: 100)
+            stackView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            stackView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            stackView.heightAnchor.constraint(equalToConstant: 200),
+            stackView.widthAnchor.constraint(equalToConstant: 200)
         ])
+        stackView.addArrangedSubview(postButton)
+
     }
     
     //MARK: actions

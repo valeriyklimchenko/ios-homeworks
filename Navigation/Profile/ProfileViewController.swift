@@ -9,6 +9,14 @@ import UIKit
 
 class ProfileViewController: UIViewController {
     
+    private lazy var newButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setTitle("newButton", for: .normal)
+        button.backgroundColor = .systemBlue
+        return button
+    }()
+    
     //MARK: subviews
         let profileHeaderView = ProfileHeaderView()
     
@@ -17,24 +25,25 @@ class ProfileViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .lightGray
         title = "Profile"
+        layout()
     }
     
-    override func viewWillLayoutSubviews() {
-        super.viewWillLayoutSubviews()
-        
-        view.addSubview(profileHeaderView)
-        layout()
-        
-    }
+
 
     //MARK: private
     private func layout() {
+        view.addSubview(profileHeaderView)
+        view.addSubview(newButton)
         profileHeaderView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             profileHeaderView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            profileHeaderView.topAnchor.constraint(equalTo: view.topAnchor),
+            profileHeaderView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             profileHeaderView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            profileHeaderView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+            profileHeaderView.heightAnchor.constraint(equalToConstant: 220),
+            
+            newButton.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            newButton.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            newButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
     }
     
