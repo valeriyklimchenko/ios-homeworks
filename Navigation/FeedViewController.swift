@@ -67,7 +67,7 @@ class FeedViewController: UIViewController {
     private func layout() {
         view.addSubview(stackView)
         stackView.addArrangedSubview(postButton)
-        stackView.addArrangedSubview(postButton2)
+        stackView.addArrangedSubview(postButton)
 
         NSLayoutConstraint.activate([
             stackView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
@@ -80,7 +80,7 @@ class FeedViewController: UIViewController {
     }
     
     //MARK: actions
-    //Описываем действие по кнопке
+    //Описываем действие по  кнопке
     @objc func showPost() {
         //При обработке нажатия создается экземпляр класса ProfileViewController()
         let PostviewController = PostviewController()
