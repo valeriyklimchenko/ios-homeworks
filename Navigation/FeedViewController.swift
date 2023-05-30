@@ -67,7 +67,7 @@ class FeedViewController: UIViewController {
     private func layout() {
         view.addSubview(stackView)
         stackView.addArrangedSubview(postButton)
-        stackView.addArrangedSubview(postButton)
+        stackView.addArrangedSubview(postButton2)
 
         NSLayoutConstraint.activate([
             stackView.centerXAnchor.constraint(equalTo: view.centerXAnchor),

@@ -24,7 +24,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         profileViewController.tabBarItem.image = UIImage(systemName: "person.fill")
         
         let feedViewController = UINavigationController(rootViewController: FeedViewController())
-        feedViewController.title = "Tape"
+        feedViewController.title = "Feed"
         feedViewController.tabBarItem.image = UIImage(systemName: "house.fill")
         
         //Создаем TabBAr

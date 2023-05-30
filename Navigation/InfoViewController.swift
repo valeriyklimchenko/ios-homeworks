@@ -17,6 +17,8 @@ class InfoViewController: UIViewController {
         button.setTitle("Перейти", for: .normal)
         button.setTitleColor(.systemBlue, for: .normal)
         button.setTitleShadowColor(.red, for: .focused)
+        button.addTarget(self, action: #selector(showAlert), for: .touchUpInside)
+
         
         return button
     }()
@@ -27,6 +29,10 @@ class InfoViewController: UIViewController {
         
         view.backgroundColor = .systemGray5
         title = "Info"
+        layout()
+    }
+     
+    private func layout() {
         
         view.addSubview(alertButton)
         
@@ -43,10 +49,6 @@ class InfoViewController: UIViewController {
             alertButton.centerYAnchor.constraint(equalTo: safeAreaLayoutGuide.centerYAnchor),
             alertButton.heightAnchor.constraint(equalToConstant: 44.0)
         ])
-        
-        
-        alertButton.addTarget(self, action: #selector(showAlert), for: .touchUpInside)
-        
     }
     
     //MARK: actions
