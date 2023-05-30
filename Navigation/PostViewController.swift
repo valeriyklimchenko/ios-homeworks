@@ -15,7 +15,7 @@ class PostviewController: UIViewController {
         
         //    Создаем BarButtonItem (Кнопка справа в данном случае)
         let infoButton = UIBarButtonItem(title: "Info", style: .plain, target: self, action: #selector(self.showInfo))
-        navigationItem.rightBarButtonItem = infoButton
+        navigationItem.leftBarButtonItem = infoButton
     }
     
     //MARK: actions
