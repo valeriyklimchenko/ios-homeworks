@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1A1808572A266CD5008AA458 /* LogInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A1808562A266CD4008AA458 /* LogInViewController.swift */; };
 		1A3FE67A29E6220500BA673A /* FeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A3FE67929E6220500BA673A /* FeedViewController.swift */; };
 		1A3FE67C29E6221200BA673A /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A3FE67B29E6221200BA673A /* ProfileViewController.swift */; };
 		1A7FF4EB29E6D4F300F3862D /* PostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A7FF4EA29E6D4F300F3862D /* PostViewController.swift */; };
@@ -20,6 +21,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1A1808562A266CD4008AA458 /* LogInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInViewController.swift; sourceTree = "<group>"; };
 		1A3FE67929E6220500BA673A /* FeedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedViewController.swift; sourceTree = "<group>"; };
 		1A3FE67B29E6221200BA673A /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		1A7FF4EA29E6D4F300F3862D /* PostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostViewController.swift; sourceTree = "<group>"; };
@@ -83,6 +85,7 @@
 			children = (
 				1AD6E4B62A0690E400199347 /* ProfileHeaderView.swift */,
 				1A3FE67B29E6221200BA673A /* ProfileViewController.swift */,
+				1A1808562A266CD4008AA458 /* LogInViewController.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -159,6 +162,7 @@
 			files = (
 				1A7FF4EB29E6D4F300F3862D /* PostViewController.swift in Sources */,
 				1A8B134E29E60B6000376913 /* AppDelegate.swift in Sources */,
+				1A1808572A266CD5008AA458 /* LogInViewController.swift in Sources */,
 				1A3FE67C29E6221200BA673A /* ProfileViewController.swift in Sources */,
 				1A3FE67A29E6220500BA673A /* FeedViewController.swift in Sources */,
 				1AEA1BA529F198B700367085 /* Post.swift in Sources */,
