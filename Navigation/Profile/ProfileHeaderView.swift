@@ -11,9 +11,8 @@ class ProfileHeaderView: UIView {
     
     //MARK: private property
     
-    private let avatarImageView: UIView = {
-        let view = UIView()
-        view.layer.contents = UIImage(named: "cat")?.cgImage
+    private let avatarImageView: UIImageView = {
+        var view = UIImageView(image: UIImage(named: "cat"))
         view.layer.borderColor = UIColor.white.cgColor
         view.layer.borderWidth = 3
         view.layer.cornerRadius = 75

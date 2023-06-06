@@ -11,25 +11,20 @@ class LogInViewController: UIViewController {
    
     //MARK: private lets and vars
     
-//    let colorSet = #colorLiteral(red: 0.3456393778, green: 0.5991438031, blue: 0.8382619619, alpha: 1)
-    
     private let scrollView: UIScrollView = {
         let view = UIScrollView()
         view.translatesAutoresizingMaskIntoConstraints = false
-//        view.backgroundColor = .black
         return view
     }()
     
     private let loginView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
-//        view.backgroundColor = .red
         return view
     }()
     
-    private let logo: UIView = {
-        let view = UIView()
-        view.layer.contents = UIImage(named: "logo")?.cgImage
+    private let logo: UIImageView = {
+        let view = UIImageView(image: UIImage(named: "logo"))
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -48,8 +43,6 @@ class LogInViewController: UIViewController {
     private lazy var emailTextField: UITextField = {
         let email = UITextField()
         email.translatesAutoresizingMaskIntoConstraints = false
-        email.layer.borderWidth = 0.5
-        email.layer.borderColor = UIColor.lightGray.cgColor
         email.placeholder = "Email or phone"
         email.indent(size: 10)
         email.isSecureTextEntry = true
@@ -65,15 +58,26 @@ class LogInViewController: UIViewController {
         return email
     }()
     
+    private let textDelimeter: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = .lightGray
+        return view
+    }()
+    
+//    private let textDelimeter: UITextField = {
+//        let view = UITextField()
+//        view.translatesAutoresizingMaskIntoConstraints = false
+//        view.backgroundColor = .lightGray
+//        return view
+//    }()
+    
     private lazy var passwordTextField: UITextField = {
         let pass = UITextField()
         pass.translatesAutoresizingMaskIntoConstraints = false
-        pass.layer.borderWidth = 0.5
-        pass.layer.borderColor = UIColor.lightGray.cgColor
         pass.placeholder = "Password"
         pass.indent(size: 10)
         pass.textColor = .black
-//        pass.tintColor = colorSet
         pass.font = UIFont(name: "sistem", size: 16)
         pass.autocapitalizationType = .none
         pass.isSecureTextEntry = true
@@ -113,9 +117,7 @@ class LogInViewController: UIViewController {
         
         view.backgroundColor = .white
         layout()
-        
-        //зачем скрывать navigation bar если его и так нет?
-//        self.navigationController?.navigationBar.isHidden = true
+        self.navigationController?.navigationBar.isHidden = true
     }
     
     
@@ -157,7 +159,7 @@ class LogInViewController: UIViewController {
             stackViewForTextField.leadingAnchor.constraint(equalTo: loginView.leadingAnchor, constant: 16),
             stackViewForTextField.topAnchor.constraint(equalTo: logo.bottomAnchor, constant: 120),
             stackViewForTextField.trailingAnchor.constraint(equalTo: loginView.trailingAnchor, constant: -16),
-            stackViewForTextField.heightAnchor.constraint(equalToConstant: 100),
+            stackViewForTextField.heightAnchor.constraint(equalToConstant: 101),
             stackViewForTextField.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor, constant: -16)
         ])
         
@@ -172,6 +174,17 @@ class LogInViewController: UIViewController {
             passwordTextField.topAnchor.constraint(equalTo: emailTextField.bottomAnchor),
             passwordTextField.trailingAnchor.constraint(equalTo: stackViewForTextField.trailingAnchor),
             passwordTextField.heightAnchor.constraint(equalToConstant: 50)
+            
+//            textDelimeter.leadingAnchor.constraint(equalTo: stackViewForTextField.leadingAnchor),
+//            textDelimeter.topAnchor.constraint(equalTo: emailTextField.bottomAnchor),
+//            textDelimeter.rightAnchor.constraint(equalTo: stackViewForTextField.trailingAnchor),
+//            textDelimeter.heightAnchor.constraint(equalToConstant: 1),
+//
+//            passwordTextField.leadingAnchor.constraint(equalTo: stackViewForTextField.leadingAnchor),
+//            passwordTextField.topAnchor.constraint(equalTo: textDelimeter.bottomAnchor),
+//            passwordTextField.trailingAnchor.constraint(equalTo: stackViewForTextField.trailingAnchor),
+//            passwordTextField.heightAnchor.constraint(equalToConstant: 50)
+////            passwordTextField.bottomAnchor.constraint(equalTo: stackViewForTextField.bottomAnchor)
         ])
         
         scrollView.addSubview(logInButton)
