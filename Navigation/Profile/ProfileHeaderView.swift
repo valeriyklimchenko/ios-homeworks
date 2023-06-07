@@ -89,7 +89,7 @@ class ProfileHeaderView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    //MARC: private func
+    //MARK: private func
     private func addViews() {
         addSubview(avatarImageView)
         addSubview(FullNameLabel)
@@ -141,6 +141,7 @@ class ProfileHeaderView: UIView {
     
 }
 
+//MARK: extensions
 extension UITextField {
     func indent(size:CGFloat) {
         self.leftView = UIView(frame: CGRect(x: self.frame.minX, y: self.frame.minY, width: size, height: self.frame.height))

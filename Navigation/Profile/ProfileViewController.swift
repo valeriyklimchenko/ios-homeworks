@@ -9,6 +9,7 @@ import UIKit
 
 class ProfileViewController: UIViewController {
     
+    //MARK: private
     private lazy var newButton: UIButton = {
         let button = UIButton(type: .system)
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -30,7 +31,7 @@ class ProfileViewController: UIViewController {
     
 
 
-    //MARK: private
+    //MARK: func
     private func layout() {
         view.addSubview(profileHeaderView)
         view.addSubview(newButton)

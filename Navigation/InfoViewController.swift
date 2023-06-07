@@ -32,6 +32,7 @@ class InfoViewController: UIViewController {
         layout()
     }
      
+    //MARK: func
     private func layout() {
         
         view.addSubview(alertButton)

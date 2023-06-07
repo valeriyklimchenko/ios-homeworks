@@ -63,7 +63,7 @@ class FeedViewController: UIViewController {
         layout()
     }
     
-    //MARK: private
+    //MARK: func
     private func layout() {
         view.addSubview(stackView)
         stackView.addArrangedSubview(postButton)

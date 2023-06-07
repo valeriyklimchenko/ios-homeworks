@@ -9,8 +9,7 @@ import UIKit
 
 class LogInViewController: UIViewController {
    
-    //MARK: private lets and vars
-    
+    //MARK: private lets and vars    
     private let scrollView: UIScrollView = {
         let view = UIScrollView()
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -47,7 +46,6 @@ class LogInViewController: UIViewController {
         email.indent(size: 10)
         email.isSecureTextEntry = true
         email.textColor = .black
-//        email.tintColor = colorSet
         email.font = UIFont(name: "defolt", size: 16)
         email.tintColor = .black
         email.autocapitalizationType = .none
@@ -64,13 +62,6 @@ class LogInViewController: UIViewController {
         view.backgroundColor = .lightGray
         return view
     }()
-    
-//    private let textDelimeter: UITextField = {
-//        let view = UITextField()
-//        view.translatesAutoresizingMaskIntoConstraints = false
-//        view.backgroundColor = .lightGray
-//        return view
-//    }()
     
     private lazy var passwordTextField: UITextField = {
         let pass = UITextField()
@@ -125,10 +116,8 @@ class LogInViewController: UIViewController {
     @objc func goToProfileViewController() {
 //        present(profile, animated: true)
         navigationController?.pushViewController(ProfileViewController(), animated: true)
-        
     }
-    
-    
+        
     private func layout() {
         let safeArea = view.safeAreaLayoutGuide
         
@@ -163,28 +152,23 @@ class LogInViewController: UIViewController {
             stackViewForTextField.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor, constant: -16)
         ])
         
-        [emailTextField, passwordTextField].forEach { stackViewForTextField.addSubview($0) }
+        [emailTextField, textDelimeter, passwordTextField].forEach { stackViewForTextField.addSubview($0) }
         NSLayoutConstraint.activate([
             emailTextField.leadingAnchor.constraint(equalTo: stackViewForTextField.leadingAnchor),
             emailTextField.topAnchor.constraint(equalTo: stackViewForTextField.topAnchor),
             emailTextField.trailingAnchor.constraint(equalTo: stackViewForTextField.trailingAnchor),
             emailTextField.heightAnchor.constraint(equalToConstant: 50),
             
+            textDelimeter.leadingAnchor.constraint(equalTo: stackViewForTextField.leadingAnchor),
+            textDelimeter.topAnchor.constraint(equalTo: emailTextField.bottomAnchor),
+            textDelimeter.trailingAnchor.constraint(equalTo: stackViewForTextField.trailingAnchor),
+            textDelimeter.heightAnchor.constraint(equalToConstant: 1),
+
             passwordTextField.leadingAnchor.constraint(equalTo: stackViewForTextField.leadingAnchor),
-            passwordTextField.topAnchor.constraint(equalTo: emailTextField.bottomAnchor),
+            passwordTextField.topAnchor.constraint(equalTo: textDelimeter.bottomAnchor),
             passwordTextField.trailingAnchor.constraint(equalTo: stackViewForTextField.trailingAnchor),
-            passwordTextField.heightAnchor.constraint(equalToConstant: 50)
-            
-//            textDelimeter.leadingAnchor.constraint(equalTo: stackViewForTextField.leadingAnchor),
-//            textDelimeter.topAnchor.constraint(equalTo: emailTextField.bottomAnchor),
-//            textDelimeter.rightAnchor.constraint(equalTo: stackViewForTextField.trailingAnchor),
-//            textDelimeter.heightAnchor.constraint(equalToConstant: 1),
-//
-//            passwordTextField.leadingAnchor.constraint(equalTo: stackViewForTextField.leadingAnchor),
-//            passwordTextField.topAnchor.constraint(equalTo: textDelimeter.bottomAnchor),
-//            passwordTextField.trailingAnchor.constraint(equalTo: stackViewForTextField.trailingAnchor),
-//            passwordTextField.heightAnchor.constraint(equalToConstant: 50)
-////            passwordTextField.bottomAnchor.constraint(equalTo: stackViewForTextField.bottomAnchor)
+            passwordTextField.heightAnchor.constraint(equalToConstant: 49)
+//            passwordTextField.bottomAnchor.constraint(equalTo: stackViewForTextField.bottomAnchor)
         ])
         
         scrollView.addSubview(logInButton)
