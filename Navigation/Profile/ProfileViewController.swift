@@ -11,9 +11,9 @@ final class ProfileViewController: UIViewController {
 
     //MARK: private
     private lazy var tableView: UITableView = {
-        let tableView = UITableView(frame: .zero, style: .plain)
+        let tableView = UITableView(frame: .zero, style: .grouped)
         tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.backgroundColor = .cyan
+        tableView.backgroundColor = .systemGray6
 
         tableView.register(PostTableViewCell.self, forCellReuseIdentifier: PostTableViewCell.identifier)
         tableView.dataSource = self
@@ -28,6 +28,7 @@ final class ProfileViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = .systemGray6
         layout()
     }
     
@@ -48,9 +49,6 @@ final class ProfileViewController: UIViewController {
 
 //MARK: extentios
 extension ProfileViewController: UITableViewDelegate {
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-    }
-    
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         250
     }

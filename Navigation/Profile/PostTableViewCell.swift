@@ -87,7 +87,7 @@ final class PostTableViewCell: UITableViewCell {
     //MARK: func
     func setupCell(model: PostModel) {
         headerLabel.text = model.author
-        postImage.image = model.image
+        postImage.image = UIImage(named: model.image)
         descriptionLabel.text = model.description
         likesLabel.text = String("Likes: \(model.likes)")
         viewsLabel.text = String("Views \(model.views)")
