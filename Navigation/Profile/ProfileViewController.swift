@@ -1,52 +1,79 @@
 //
-//  ProfileHeaderView.swift
+//  ProfileViewController.swift
 //  Navigation
 //
-//  Created by Валерий Климченко on 06.05.2023.
+//  Created by Валерий Климченко on 09.06.2023.
 //
 
 import UIKit
 
-class ProfileViewController: UIViewController {
-    
+final class ProfileViewController: UIViewController {
+
     //MARK: private
-    private lazy var newButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("newButton", for: .normal)
-        button.backgroundColor = .systemBlue
-        return button
+    private lazy var tableView: UITableView = {
+        let tableView = UITableView(frame: .zero, style: .plain)
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.backgroundColor = .cyan
+
+        tableView.register(PostTableViewCell.self, forCellReuseIdentifier: PostTableViewCell.identifier)
+        tableView.dataSource = self
+        tableView.delegate = self
+
+        return tableView
     }()
     
-    //MARK: subviews
-        let profileHeaderView = ProfileHeaderView()
-    
+    private let postModel = PostModel.makePostModel()
+
     //MARK: life cycle
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .lightGray
-        title = "Profile"
         layout()
     }
     
 
-
-    //MARK: func
     private func layout() {
-        view.addSubview(profileHeaderView)
-        view.addSubview(newButton)
-        profileHeaderView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(tableView)
+        let safeArea = view.safeAreaLayoutGuide
         NSLayoutConstraint.activate([
-            profileHeaderView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            profileHeaderView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            profileHeaderView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            profileHeaderView.heightAnchor.constraint(equalToConstant: 220),
-            
-            newButton.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            newButton.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            newButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+            tableView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor),
+            tableView.topAnchor.constraint(equalTo: safeArea.topAnchor),
+            tableView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor),
+            tableView.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor)
         ])
+
+    }
+
+}
+
+//MARK: extentios
+extension ProfileViewController: UITableViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        250
     }
     
 }
 
+extension ProfileViewController: UITableViewDataSource{
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        ProfileTableHeaderView()
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        postModel.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        let cell = tableView.dequeueReusableCell(withIdentifier: PostTableViewCell.identifier, for: indexPath) as! PostTableViewCell
+        cell.setupCell(model: postModel[indexPath.row])
+
+        return cell
+    }
+    
+    
+}

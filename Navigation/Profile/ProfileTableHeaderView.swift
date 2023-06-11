@@ -1,5 +1,5 @@
 //
-//  ProfileHeaderView.swift
+//  ProfileTableHeaderView.swift
 //  Navigation
 //
 //  Created by Валерий Климченко on 06.05.2023.
@@ -7,12 +7,19 @@
 
 import UIKit
 
-class ProfileHeaderView: UIView {
+class ProfileTableHeaderView: UIView {
     
     //MARK: private property
     
+    private let whiteView: UIView = {
+       let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = .white
+        return view
+    }()
+    
     private let avatarImageView: UIImageView = {
-        var view = UIImageView(image: UIImage(named: "cat"))
+        var view = UIImageView(image: UIImage(named: "DiniLogo"))
         view.layer.borderColor = UIColor.white.cgColor
         view.layer.borderWidth = 3
         view.layer.cornerRadius = 75
@@ -21,9 +28,9 @@ class ProfileHeaderView: UIView {
         return view
     }()
     
-    private let FullNameLabel: UILabel = {
+    private let fullNameLabel: UILabel = {
         let label = UILabel()
-        label.text = "Super Cat"
+        label.text = "Super Dinozaur"
         label.textColor = .black
         label.font = UIFont.systemFont(ofSize: 18, weight: .bold, width: .standard)
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -52,6 +59,8 @@ class ProfileHeaderView: UIView {
         field.translatesAutoresizingMaskIntoConstraints = false
         
         field.addTarget(self, action: #selector(changeStatus), for: .editingChanged)    //Использую lazy чтобы здесь не было ошибки
+        
+        field.delegate = self
         
         return field
     }()
@@ -83,6 +92,7 @@ class ProfileHeaderView: UIView {
         super.init(frame: frame)
         addViews()
         setupConstraint()
+        backgroundColor = .gray
     }
     
     required init?(coder: NSCoder) {
@@ -91,28 +101,30 @@ class ProfileHeaderView: UIView {
     
     //MARK: private func
     private func addViews() {
-        addSubview(avatarImageView)
-        addSubview(FullNameLabel)
-        addSubview(statusLabel)
-        addSubview(statusTextField)
-        addSubview(setStatusButton)
+        addSubview(whiteView)
+        [avatarImageView, fullNameLabel, statusLabel, statusTextField, setStatusButton].forEach { whiteView.addSubview($0) }
     }
     
     //MARK: life cycle
     private func setupConstraint() {
         NSLayoutConstraint.activate([
+            whiteView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            whiteView.topAnchor.constraint(equalTo: topAnchor),
+            whiteView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            whiteView.bottomAnchor.constraint(equalTo: bottomAnchor),
+            
             avatarImageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
             avatarImageView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 16),
             avatarImageView.widthAnchor.constraint(equalToConstant: 150),
             avatarImageView.heightAnchor.constraint(equalToConstant: 150),
             
-            FullNameLabel.leadingAnchor.constraint(equalTo: avatarImageView.trailingAnchor, constant: 20),
-            FullNameLabel.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 27),
-            FullNameLabel.trailingAnchor.constraint(equalTo: trailingAnchor),
-            FullNameLabel.heightAnchor.constraint(equalToConstant: 30),
+            fullNameLabel.leadingAnchor.constraint(equalTo: avatarImageView.trailingAnchor, constant: 20),
+            fullNameLabel.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 27),
+            fullNameLabel.trailingAnchor.constraint(equalTo: trailingAnchor),
+            fullNameLabel.heightAnchor.constraint(equalToConstant: 30),
             
             statusLabel.leadingAnchor.constraint(equalTo: avatarImageView.trailingAnchor, constant: 20),
-            statusLabel.topAnchor.constraint(equalTo: FullNameLabel.bottomAnchor, constant: 40),
+            statusLabel.topAnchor.constraint(equalTo: fullNameLabel.bottomAnchor, constant: 40),
             statusLabel.heightAnchor.constraint(equalToConstant: 20),
             statusLabel.widthAnchor.constraint(equalToConstant: 300),
             
@@ -131,7 +143,7 @@ class ProfileHeaderView: UIView {
     @objc func setStatus() {
         if statusText != "" {
             statusLabel.text = statusText
-            print(statusTextField.text ?? "")
+//            print(statusTextField.text ?? "")
         }
     }
     
@@ -142,9 +154,18 @@ class ProfileHeaderView: UIView {
 }
 
 //MARK: extensions
+
+//Отступ слева у текста в textField
 extension UITextField {
     func indent(size:CGFloat) {
         self.leftView = UIView(frame: CGRect(x: self.frame.minX, y: self.frame.minY, width: size, height: self.frame.height))
         self.leftViewMode = .always
+    }
+}
+
+//Скрытие клавиатуры
+extension ProfileTableHeaderView: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        statusTextField.endEditing(true)
     }
 }
