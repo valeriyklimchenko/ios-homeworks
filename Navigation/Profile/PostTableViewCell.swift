@@ -64,8 +64,7 @@ final class PostTableViewCell: UITableViewCell {
         return label
     }()
     
-    //MARK: life cycle
-    
+    //MARK: life cycle    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         layout()
