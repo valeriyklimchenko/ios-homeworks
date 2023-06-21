@@ -19,7 +19,7 @@ class ProfileTableHeaderView: UIView {
     }()
     
     private let avatarImageView: UIImageView = {
-        var view = UIImageView(image: UIImage(named: "DiniLogo"))
+        var view = UIImageView(image: UIImage(named: "11"))
         view.layer.borderColor = UIColor.white.cgColor
         view.layer.borderWidth = 3
         view.layer.cornerRadius = 75
