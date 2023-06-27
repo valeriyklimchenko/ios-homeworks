@@ -29,7 +29,7 @@ final class PostTableViewCell: UITableViewCell {
         let image = UIImageView()
         image.translatesAutoresizingMaskIntoConstraints = false
         image.contentMode = .scaleAspectFit
-        image.backgroundColor = .black
+//        image.backgroundColor = .black
         return image
     }()
     
@@ -112,9 +112,9 @@ final class PostTableViewCell: UITableViewCell {
             headerLabel.topAnchor.constraint(equalTo: whiteView.topAnchor, constant: inset),
             headerLabel.trailingAnchor.constraint(equalTo: whiteView.trailingAnchor, constant: -inset),
             
-            postImage.leadingAnchor.constraint(equalTo: whiteView.leadingAnchor, constant: inset),
+            postImage.leadingAnchor.constraint(equalTo: whiteView.leadingAnchor, constant: 0),
             postImage.topAnchor.constraint(equalTo: headerLabel.bottomAnchor, constant: inset),
-            postImage.trailingAnchor.constraint(equalTo: whiteView.trailingAnchor, constant: -inset),
+            postImage.trailingAnchor.constraint(equalTo: whiteView.trailingAnchor, constant: 0),
             postImage.heightAnchor.constraint(equalToConstant: 300),
             
             descriptionLabel.leadingAnchor.constraint(equalTo: whiteView.leadingAnchor, constant: inset),

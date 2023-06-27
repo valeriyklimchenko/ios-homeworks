@@ -14,7 +14,7 @@ class ProfileTableHeaderView: UIView {
     private let whiteView: UIView = {
        let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = .white
+        view.backgroundColor = .systemGray6
         return view
     }()
     
@@ -143,7 +143,6 @@ class ProfileTableHeaderView: UIView {
     @objc func setStatus() {
         if statusText != "" {
             statusLabel.text = statusText
-//            print(statusTextField.text ?? "")
         }
     }
     

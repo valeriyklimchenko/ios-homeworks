@@ -32,11 +32,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         //Создаем TabBAr
         let tabBarController = UITabBarController()
         tabBarController.viewControllers = [profileViewController, feedViewController]
-//        tabBarController.viewControllers = [feedViewController, profileTableHeaderView]
+//        tabBarController.viewControllers = [feedViewController, profileViewController]
 
 
         tabBarController.tabBarItem.title = "title"
-        tabBarController.tabBar.backgroundColor = UIColor.systemGray6
+        tabBarController.tabBar.backgroundColor = UIColor.systemGray
         tabBarController.tabBar.tintColor = UIColor.systemBlue
         
         //Устанавливаем TabBar в качестве корневого

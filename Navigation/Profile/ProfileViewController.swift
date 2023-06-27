@@ -34,7 +34,7 @@ final class ProfileViewController: UIViewController {
     
 
     private func layout() {
-        view.addSubview(tableView)
+        [tableView].forEach { view.addSubview($0) }
         let safeArea = view.safeAreaLayoutGuide
         NSLayoutConstraint.activate([
             tableView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor),
@@ -50,42 +50,63 @@ final class ProfileViewController: UIViewController {
 //MARK: extentios
 extension ProfileViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        250
+        if section == 0 {
+            return 250
+        }
+        return 0
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print(indexPath.section)
+        if indexPath.section == 0 {
+            let vc = PhotoViewController()
+        navigationController?.pushViewController(vc, animated: false)
+        }
+    }
+
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if indexPath.section == 0 {
+            return 150
+        }
+        return UITableView.automaticDimension
     }
     
 }
+
 
 extension ProfileViewController: UITableViewDataSource{
     
     
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        if section == 0 {
             return ProfileTableHeaderView()
+        }
+        return nil
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        postModel.count + 1
+        if section == 1 {
+            return postModel.count
+        }
+        return 1
     }
     
-//    func numberOfSections(in tableView: UITableView) -> Int {
-//        2
-//    }
+    func numberOfSections(in tableView: UITableView) -> Int {
+        2
+    }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if indexPath.row == 0 {
+        if indexPath.section == 0 {
             let cell = tableView.dequeueReusableCell(withIdentifier: PhotosTableViewCell.identifier, for: indexPath) as! PhotosTableViewCell
+//            cell.accessoryType = .disclosureIndicator
+            
             return cell
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: PostTableViewCell.identifier, for: indexPath) as! PostTableViewCell
-            cell.setupCell(model: postModel[indexPath.row - 1])
+            cell.setupCell(model: postModel[indexPath.row])
             return cell
         }
     }
-    
-    
 }
 
