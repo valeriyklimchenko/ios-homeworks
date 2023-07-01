@@ -23,15 +23,25 @@ final class ProfileViewController: UIViewController {
     }()
     
     private let postModel = PostModel.makePostModel()
-
+    
     //MARK: life cycle
-
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemGray6
         layout()
+//        setupGesture()
     }
     
+    func setupGesture() {
+        let AvatarImageViewTap = UITapGestureRecognizer(target: self, action: #selector(avatarImageViewAction))
+        let avatar = ProfileTableHeaderView().avatarImageView
+        avatar.isUserInteractionEnabled = true
+        avatar.addGestureRecognizer(AvatarImageViewTap)
+    }
+
+    @objc private func avatarImageViewAction() {
+        print("animation")
+    }
 
     private func layout() {
         [tableView].forEach { view.addSubview($0) }
@@ -51,6 +61,7 @@ final class ProfileViewController: UIViewController {
 extension ProfileViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         if section == 0 {
+//            return view.bounds.height
             return 250
         }
         return 0
