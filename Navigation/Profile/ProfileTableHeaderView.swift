@@ -95,54 +95,7 @@ class ProfileTableHeaderView: UIView {
         addViews()
         setupConstraint()
         backgroundColor = .gray
-        setupGesture()
     }
-    
-    func setupGesture() {
-        let AvatarImageViewTap = UITapGestureRecognizer(target: self, action: #selector(avatarImageViewAction))
-        let avatar = avatarImageView
-        avatar.isUserInteractionEnabled = true
-        avatar.addGestureRecognizer(AvatarImageViewTap)
-    }
-    
-    @objc private func avatarImageViewAction() {
-//        print("animation")
-        avatarImageView.bringSubviewToFront(ProfileTableHeaderView())
-        let finalPosition = CGPoint(x: ProfileViewController().view.center.x, y: ProfileViewController().view.center.y)
-        let positionAnimation = CABasicAnimation(keyPath: #keyPath(CALayer.position))
-        positionAnimation.fromValue = avatarImageView.center
-        positionAnimation.toValue = finalPosition
-        avatarImageView.layer.position = finalPosition
-//        avatarImageView.leadingAnchor.co = CGFloat(300)
-
-        let groupAnimation = CAAnimationGroup()
-        groupAnimation.duration = 2
-        groupAnimation.animations = [positionAnimation]
-        groupAnimation.timingFunction = CAMediaTimingFunction(name: .easeInEaseOut)
-        avatarImageView.layer.add(groupAnimation, forKey: nil)
-        
-   
-        //Анимация позиции
-//        let positionAnimation = CABasicAnimation(keyPath: #keyPath(CALayer.position))
-//        positionAnimation.fromValue = avatarImageView.center
-//        positionAnimation.toValue = CGPoint(x: bounds.width, y: avatarImageView.center.y)
-//        //создаем группу
-//        let groupAnimayion = CAAnimationGroup()
-//        groupAnimayion.duration = 2
-//        groupAnimayion.animations = [positionAnimation]
-//        //плавное начало и конец
-//        groupAnimayion.timingFunction = CAMediaTimingFunction(name: .easeInEaseOut)
-//        //к layer добавляем анимацию (CAAnimation анимирует layer)
-//        avatarImageView.layer.add(groupAnimayion, forKey: nil)
-//        //Указываем конечные значения (CABasicAnimation)
-//        avatarImageView.layer.position = CGPoint(x: bounds.width, y: avatarImageView.center.y)
-    }
-    
-    
-    
-    
-    
-    
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
