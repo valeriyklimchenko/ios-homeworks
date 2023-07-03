@@ -42,7 +42,7 @@ final class PostTableViewCell: UITableViewCell {
         return label
     }()
     
-    private let likesLabel: UILabel = {
+    let likesLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = .black
@@ -54,7 +54,7 @@ final class PostTableViewCell: UITableViewCell {
         return label
     }()
     
-    private let viewsLabel: UILabel = {
+    let viewsLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = .black

@@ -12,7 +12,6 @@ final class ProfileViewController: UIViewController {
     //MARK: private
     
     private let headerView = ProfileTableHeaderView()
-    private let ava = ProfileTableHeaderView().avatarImageView
     
     var postModel = PostModel.makePostModel()
     
@@ -72,16 +71,16 @@ final class ProfileViewController: UIViewController {
     
     func setupGesture() {
         let avatarImageViewTap = UITapGestureRecognizer(target: self, action: #selector(animateKeyframesTap))
-        ava.isUserInteractionEnabled = true
-        ava.addGestureRecognizer(avatarImageViewTap)
+        headerView.avatarImageView.isUserInteractionEnabled = true
+        headerView.avatarImageView.addGestureRecognizer(avatarImageViewTap)
         
         let crossViewTap = UITapGestureRecognizer(target: self, action: #selector(crossKeyframesTap))
         cross.isUserInteractionEnabled = true
         cross.addGestureRecognizer(crossViewTap)
         
-        let moreLikes = UITapGestureRecognizer(target: self, action: #selector(oneMoreLike))
-        tableView.isUserInteractionEnabled = true
-        tableView.addGestureRecognizer(moreLikes)
+//        let moreLikes = UITapGestureRecognizer(target: self, action: #selector(oneMoreLike))
+//        tableView.isUserInteractionEnabled = true
+//        tableView.addGestureRecognizer(moreLikes)
 //        viewsLabel.addGestureRecognizer(moreLikes)
         
 //        let tapGesture: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(didSelectItem(sender:)))
@@ -106,7 +105,6 @@ final class ProfileViewController: UIViewController {
     @objc private func animateKeyframesTap() {
         UIView.animateKeyframes(withDuration: 0.8, delay: 0) {
             UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 0.5/0.8) {
-                print("123")
                 self.newView.layer.opacity = 0.5
                 
                 let avatarWidth = self.view.frame.size.width - 16
@@ -223,7 +221,7 @@ extension ProfileViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section == 0 {
             let vc = PhotoViewController()
-        navigationController?.pushViewController(vc, animated: false)
+            navigationController?.pushViewController(vc, animated: false)
         }
     }
 
