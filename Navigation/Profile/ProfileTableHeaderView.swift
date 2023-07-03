@@ -144,7 +144,9 @@ class ProfileTableHeaderView: UIView {
     }
     //MARK: actions
     @objc func setStatus() {
-        if statusText != "" {
+        if statusText == "" {
+            LogInViewController().shakeAnimation(textField: statusTextField)
+        } else {
             statusLabel.text = statusText
         }
     }
