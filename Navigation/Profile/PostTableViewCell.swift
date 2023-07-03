@@ -68,10 +68,24 @@ final class PostTableViewCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         layout()
+        setupGestures()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    private func setupGestures() {
+        let moreLikes = UITapGestureRecognizer(target: self, action: #selector(oneMoreLike))
+        likesLabel.isUserInteractionEnabled = true
+        likesLabel.addGestureRecognizer(moreLikes)
+//        viewsLabel.addGestureRecognizer(moreLikes)
+        }
+    
+    @objc private func oneMoreLike() {
+        
+//        print(likesLabel.text)
+//        print("like")
     }
     
     override func prepareForReuse() {
@@ -132,9 +146,5 @@ final class PostTableViewCell: UITableViewCell {
             viewsLabel.widthAnchor.constraint(equalToConstant: width)
         ])
     }
-    
-//    @objc func numberLikesIncrease() {
-//        print("123")
-//    }
     
 }

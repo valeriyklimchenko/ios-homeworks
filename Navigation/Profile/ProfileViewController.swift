@@ -11,9 +11,10 @@ final class ProfileViewController: UIViewController {
     
     //MARK: private
     
-     private let headerView = ProfileTableHeaderView()
+    private let headerView = ProfileTableHeaderView()
+    private let ava = ProfileTableHeaderView().avatarImageView
     
-    private let postModel = PostModel.makePostModel()
+    var postModel = PostModel.makePostModel()
     
     private var leadingAvatar = NSLayoutConstraint()
     private var topAvatar = NSLayoutConstraint()
@@ -28,6 +29,7 @@ final class ProfileViewController: UIViewController {
         view.layer.cornerRadius = 75
         view.clipsToBounds = true
         view.translatesAutoresizingMaskIntoConstraints = false
+        view.layer.opacity = 0
         return view
     }()
 
@@ -70,18 +72,41 @@ final class ProfileViewController: UIViewController {
     
     func setupGesture() {
         let avatarImageViewTap = UITapGestureRecognizer(target: self, action: #selector(animateKeyframesTap))
-        avatar.isUserInteractionEnabled = true
-        avatar.addGestureRecognizer(avatarImageViewTap)
+        ava.isUserInteractionEnabled = true
+        ava.addGestureRecognizer(avatarImageViewTap)
         
         let crossViewTap = UITapGestureRecognizer(target: self, action: #selector(crossKeyframesTap))
         cross.isUserInteractionEnabled = true
         cross.addGestureRecognizer(crossViewTap)
+        
+        let moreLikes = UITapGestureRecognizer(target: self, action: #selector(oneMoreLike))
+        tableView.isUserInteractionEnabled = true
+        tableView.addGestureRecognizer(moreLikes)
+//        viewsLabel.addGestureRecognizer(moreLikes)
+        
+//        let tapGesture: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(didSelectItem(sender:)))
+//
     }
+   
+//    @objc func didSelectItem(sender: AnyObject?) {
+//        print("didSelectItem: \(sender)")
+//    }
+    
+    @objc private func oneMoreLike() {
+        postModel[0].likes += 1
+//        self.postModel[indexPath.row].likes += 1
+//        print(postModel[indexPath.row].likes)
+        tableView.reloadData()
+        
+
+    }
+    
 
     //KeyframesAnimation
     @objc private func animateKeyframesTap() {
         UIView.animateKeyframes(withDuration: 0.8, delay: 0) {
             UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 0.5/0.8) {
+                print("123")
                 self.newView.layer.opacity = 0.5
                 
                 let avatarWidth = self.view.frame.size.width - 16
@@ -90,6 +115,7 @@ final class ProfileViewController: UIViewController {
                 self.widthAvatar.constant = avatarWidth
                 self.heightAvatar.constant = avatarWidth
                 self.avatar.layer.cornerRadius = 0
+                self.avatar.layer.opacity = 1
 
                 self.avatar.layoutIfNeeded()
             }

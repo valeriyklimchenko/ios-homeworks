@@ -148,7 +148,7 @@ class LogInViewController: UIViewController {
     
 
     
-    @objc func showAlert() {
+    @objc private func showAlert() {
         //Создаем айлерт
         let alert = UIAlertController(title: "Authorization failed", message: "Enter the correct username and password", preferredStyle: .alert)
         //Действия при нажатии (сообщение в консоли)
