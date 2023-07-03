@@ -28,6 +28,7 @@ final class ProfileViewController: UIViewController {
         view.layer.cornerRadius = 75
         view.clipsToBounds = true
         view.translatesAutoresizingMaskIntoConstraints = false
+        view.layer.opacity = 0
         return view
     }()
 
@@ -70,8 +71,8 @@ final class ProfileViewController: UIViewController {
     
     func setupGesture() {
         let avatarImageViewTap = UITapGestureRecognizer(target: self, action: #selector(animateKeyframesTap))
-        avatar.isUserInteractionEnabled = true
-        avatar.addGestureRecognizer(avatarImageViewTap)
+        headerView.avatarImageView.isUserInteractionEnabled = true
+        headerView.avatarImageView.addGestureRecognizer(avatarImageViewTap)
         
         let crossViewTap = UITapGestureRecognizer(target: self, action: #selector(crossKeyframesTap))
         cross.isUserInteractionEnabled = true
@@ -90,6 +91,7 @@ final class ProfileViewController: UIViewController {
                 self.widthAvatar.constant = avatarWidth
                 self.heightAvatar.constant = avatarWidth
                 self.avatar.layer.cornerRadius = 0
+                self.avatar.layer.opacity = 1
 
                 self.avatar.layoutIfNeeded()
             }
@@ -101,7 +103,7 @@ final class ProfileViewController: UIViewController {
     
     @objc private func crossKeyframesTap() {
         UIView.animateKeyframes(withDuration: 0.8, delay: 0) {
-            UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 0.3/0.8) {
+            UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 0.7) {
                 self.cross.layer.opacity = 0
             }
             UIView.addKeyframe(withRelativeStartTime: 0.7, relativeDuration: 1) {
@@ -114,7 +116,7 @@ final class ProfileViewController: UIViewController {
                 self.avatar.layer.cornerRadius = 75
                 
                 self.avatar.layoutIfNeeded()
-                
+                self.avatar.layer.opacity = 0
             }
         }
     }
