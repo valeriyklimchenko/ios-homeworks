@@ -7,16 +7,17 @@
 
 import UIKit
 
+//Создаем протокол, чтобы ProfileTableHeaderView делегировал полномочия по отрисовки анимации ProfileViewController
+protocol ProfileTableHeaderViewDelegate: AnyObject {
+    func tapAction(image: UIImage?, imageRect: CGRect)
+}
+
 class ProfileTableHeaderView: UIView {
     
     //MARK: private property
     
-    private let whiteView: UIView = {
-       let view = UIView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = .systemGray6
-        return view
-    }()
+    //Создаем переменную, имеющую тип делегата, чтобы пожно было подписываться под него
+    weak var delegate: ProfileTableHeaderViewDelegate?
     
     let avatarImageView: UIImageView = {
         var view = UIImageView(image: UIImage(named: "11"))
@@ -28,8 +29,6 @@ class ProfileTableHeaderView: UIView {
         return view
     }()
 
-    
-    
     private let fullNameLabel: UILabel = {
         let label = UILabel()
         label.text = "Super Dinozaur"
@@ -94,7 +93,8 @@ class ProfileTableHeaderView: UIView {
         super.init(frame: frame)
         addViews()
         setupConstraint()
-        backgroundColor = .gray
+        backgroundColor = .systemGray6
+        setupGesture()
     }
     
     required init?(coder: NSCoder) {
@@ -103,18 +103,24 @@ class ProfileTableHeaderView: UIView {
     
     //MARK: private func
     
-    private func addViews() {
-        addSubview(whiteView)
-        [avatarImageView, fullNameLabel, statusLabel, statusTextField, setStatusButton].forEach { whiteView.addSubview($0) }
+    //Создаю жест: при нажатии на аватар показывается увеличенная картинка
+    private func  setupGesture() {
+        let didTapImage = UITapGestureRecognizer(target: self, action: #selector(tapImage))
+        avatarImageView.addGestureRecognizer(didTapImage)
     }
     
-    //MARK: life cycle
+    @objc func tapImage() {
+        //При клике на аватар обращаемся к делегату и реализуем единственную функцию. В функцию передаем картинку и ее фрейм, чтобы можно было сделать анимацию возвращения картинки в исходное состояние
+        print("!23")
+        delegate?.tapAction(image: avatarImageView.image, imageRect: avatarImageView.frame)
+    }
+    
+    private func addViews() {
+        [avatarImageView, fullNameLabel, statusLabel, statusTextField, setStatusButton].forEach { addSubview($0) }
+    }
+
     private func setupConstraint() {
         NSLayoutConstraint.activate([
-            whiteView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            whiteView.topAnchor.constraint(equalTo: topAnchor),
-            whiteView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            whiteView.bottomAnchor.constraint(equalTo: bottomAnchor),
             
             avatarImageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
             avatarImageView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 16),
