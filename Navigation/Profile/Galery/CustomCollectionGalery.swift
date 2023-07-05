@@ -36,7 +36,6 @@ final class CustomCollectionGalery: UICollectionViewCell {
     
     //CaAnimation
     @objc private func showImage() {
-        print("123")
         let finalPosition = CGPoint(x: PhotoViewController().view.frame.width/2, y: 8)
         let finalSize = CGRect(x: 0, y: 0, width: PhotoViewController().view.bounds.width, height: PhotoViewController().view.bounds.width)
 //        let finalCornerRadius = view.bounds.width / 2

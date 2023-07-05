@@ -9,12 +9,12 @@ import UIKit
 
 //Создаем протокол, чтобы ProfileTableHeaderView делегировал полномочия по отрисовки анимации ProfileViewController
 protocol ProfileTableHeaderViewDelegate: AnyObject {
-    func tapAction(image: UIImage?, imageRect: CGRect)
+    func protocolFunction(image: UIImage?, imageRect: CGRect)
 }
 
 class ProfileTableHeaderView: UIView {
     
-    //MARK: private property
+    //MARK: - private property
     
     //Создаем переменную, имеющую тип делегата, чтобы пожно было подписываться под него
     weak var delegate: ProfileTableHeaderViewDelegate?
@@ -88,7 +88,7 @@ class ProfileTableHeaderView: UIView {
     
     private var statusText: String = ""
     
-    //MARK: init
+    //MARK: - init
     override init(frame: CGRect) {
         super.init(frame: frame)
         addViews()
@@ -101,20 +101,18 @@ class ProfileTableHeaderView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    //MARK: private func
+    //MARK: - Gesture
     
     //Создаю жест: при нажатии на аватар показывается увеличенная картинка
     private func  setupGesture() {
-        let didTapImage = UITapGestureRecognizer(target: self, action: #selector(tapImage))
+        let didTapImage = UITapGestureRecognizer(target: self, action: #selector(openImageAction))
+        avatarImageView.isUserInteractionEnabled = true
         avatarImageView.addGestureRecognizer(didTapImage)
     }
     
-    @objc func tapImage() {
-        //При клике на аватар обращаемся к делегату и реализуем единственную функцию. В функцию передаем картинку и ее фрейм, чтобы можно было сделать анимацию возвращения картинки в исходное состояние
-        print("!23")
-        delegate?.tapAction(image: avatarImageView.image, imageRect: avatarImageView.frame)
-    }
+
     
+    //MARK: - Layout
     private func addViews() {
         [avatarImageView, fullNameLabel, statusLabel, statusTextField, setStatusButton].forEach { addSubview($0) }
     }
@@ -149,6 +147,12 @@ class ProfileTableHeaderView: UIView {
         ])
     }
     //MARK: actions
+    
+    @objc func openImageAction() {
+        //При клике на аватар обращаемся к делегату и реализуем единственную функцию. В функцию передаем картинку и ее фрейм, чтобы можно было сделать анимацию возвращения картинки в исходное состояние
+        delegate?.protocolFunction(image: avatarImageView.image, imageRect: avatarImageView.frame)
+    }
+    
     @objc func setStatus() {
         if statusText == "" {
             LogInViewController().shakeAnimation(textField: statusTextField)
