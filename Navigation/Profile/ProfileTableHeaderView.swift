@@ -21,6 +21,7 @@ class ProfileTableHeaderView: UIView {
         var view = UIImageView(image: UIImage(systemName: "xmark"))
         view.alpha = 0
         view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = .systemGray3
         return view
     }()
     
@@ -173,8 +174,10 @@ class ProfileTableHeaderView: UIView {
             setStatusButton.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -16),
             setStatusButton.heightAnchor.constraint(equalToConstant: 50),
             
-            crossButton.topAnchor.constraint(equalTo: whiteView.topAnchor, constant: 130),
+            crossButton.topAnchor.constraint(equalTo: whiteView.topAnchor, constant: 0),
             crossButton.trailingAnchor.constraint(equalTo: whiteView.trailingAnchor, constant: -16),
+            crossButton.widthAnchor.constraint(equalToConstant: 50),
+            crossButton.heightAnchor.constraint(equalToConstant: 50)
         ])
         leadingAvatar = avatarImageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16)
         topAvatar = avatarImageView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 16)
@@ -190,7 +193,6 @@ class ProfileTableHeaderView: UIView {
 
 
         UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseInOut) {
-//            self.viewForAnimation.layer.opacity = 0.5
             self.viewForAnimation.alpha = 0.5
             self.avatarImageView.layer.bounds = CGRect(x: 0, y: 0, width: width, height: width)
             self.avatarImageView.center = CGPoint(x: self.whiteView.center.x, y: self.whiteView.center.y + 200)
@@ -200,7 +202,6 @@ class ProfileTableHeaderView: UIView {
 //            self.layoutIfNeeded()
         } completion: { _ in
             UIView.animate(withDuration: 0.3, delay: 0) {
-                //            self.crossButton.layer.opacity = 1
                 self.crossButton.alpha = 1
 //                self.layoutIfNeeded()
             }
