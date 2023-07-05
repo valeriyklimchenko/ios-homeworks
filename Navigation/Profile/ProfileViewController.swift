@@ -203,9 +203,9 @@ extension ProfileViewController: UITableViewDataSource{
 
 extension ProfileViewController: ProfileTableHeaderViewDelegate {
     func protocolFunction(image: UIImage?, imageRect: CGRect) {
-        //Узнаем где находится аватар
+        //Узнаем где находится хэдер таблицы
         let rect = headerView.frame
-        //конвертируем в положение относительно superview
+        //конвертируем в положение хэдера относительно superview
         let currentHeaderRect = tableView.convert(rect, to: view)
         initialRect = CGRect(x: imageRect.origin.x,
                              y: imageRect.origin.y + currentHeaderRect.origin.y, //отступ сверху + высота бара

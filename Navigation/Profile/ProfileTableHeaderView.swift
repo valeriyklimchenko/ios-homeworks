@@ -149,7 +149,7 @@ class ProfileTableHeaderView: UIView {
     //MARK: actions
     
     @objc func openImageAction() {
-        //При клике на аватар обращаемся к делегату и реализуем единственную функцию. В функцию передаем картинку и ее фрейм, чтобы можно было сделать анимацию возвращения картинки в исходное состояние
+        //При клике на аватар обращаемся к делегату и уже в extention ViewController реализуем единственную функцию. В функцию передаем картинку и ее фрейм, чтобы можно было сделать анимацию возвращения картинки в исходное состояние
         delegate?.protocolFunction(image: avatarImageView.image, imageRect: avatarImageView.frame)
     }
     
