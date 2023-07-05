@@ -21,31 +21,6 @@ final class ProfileViewController: UIViewController {
     private var widthAvatar = NSLayoutConstraint()
 
     
-    let avatar: UIImageView = {
-        var view = UIImageView(image: UIImage(named: "11"))
-        view.layer.borderColor = UIColor.white.cgColor
-        view.layer.borderWidth = 3
-        view.layer.cornerRadius = 75
-        view.clipsToBounds = true
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.layer.opacity = 0
-        return view
-    }()
-
-    let cross: UIImageView = {
-        var view = UIImageView(image: UIImage(systemName: "cross.fill"))
-        view.layer.opacity = 0
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
-    
-    private let newView: UIView = {
-       let view = UIView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = .white
-        view.layer.opacity = 0
-        return view
-    }()
     
     
     
@@ -66,60 +41,60 @@ final class ProfileViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .systemGray6
         layout()
-        setupGesture()
+//        setupGesture()
     }
     
-    func setupGesture() {
-        let avatarImageViewTap = UITapGestureRecognizer(target: self, action: #selector(animateKeyframesTap))
-        headerView.avatarImageView.isUserInteractionEnabled = true
-        headerView.avatarImageView.addGestureRecognizer(avatarImageViewTap)
-        
-        let crossViewTap = UITapGestureRecognizer(target: self, action: #selector(crossKeyframesTap))
-        cross.isUserInteractionEnabled = true
-        cross.addGestureRecognizer(crossViewTap)
-    }
+//    func setupGesture() {
+//        let avatarImageViewTap = UITapGestureRecognizer(target: self, action: #selector(animateKeyframesTap))
+//        headerView.avatarImageView.isUserInteractionEnabled = true
+//        headerView.avatarImageView.addGestureRecognizer(avatarImageViewTap)
+//
+//        let crossViewTap = UITapGestureRecognizer(target: self, action: #selector(crossKeyframesTap))
+//        cross.isUserInteractionEnabled = true
+//        cross.addGestureRecognizer(crossViewTap)
+//    }
 
     //KeyframesAnimation
-    @objc private func animateKeyframesTap() {
-        UIView.animateKeyframes(withDuration: 0.8, delay: 0) {
-            UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 0.5/0.8) {
-                self.newView.layer.opacity = 0.5
-                
-                let avatarWidth = self.view.frame.size.width - 16
-                self.leadingAvatar.constant = 8
-                self.topAvatar.constant = 200
-                self.widthAvatar.constant = avatarWidth
-                self.heightAvatar.constant = avatarWidth
-                self.avatar.layer.cornerRadius = 0
-                self.avatar.layer.opacity = 1
-
-                self.avatar.layoutIfNeeded()
-            }
-            UIView.addKeyframe(withRelativeStartTime: 0.5/0.8, relativeDuration: 1) {
-                self.cross.layer.opacity = 1
-            }
-        }
-    }
+//    @objc private func animateKeyframesTap() {
+//        UIView.animateKeyframes(withDuration: 0.8, delay: 0) {
+//            UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 0.5/0.8) {
+//                self.newView.layer.opacity = 0.5
+//
+//                let avatarWidth = self.view.frame.size.width - 16
+//                self.leadingAvatar.constant = 8
+//                self.topAvatar.constant = 200
+//                self.widthAvatar.constant = avatarWidth
+//                self.heightAvatar.constant = avatarWidth
+//                self.avatar.layer.cornerRadius = 0
+//                self.avatar.layer.opacity = 1
+//
+//                self.avatar.layoutIfNeeded()
+//            }
+//            UIView.addKeyframe(withRelativeStartTime: 0.5/0.8, relativeDuration: 1) {
+//                self.cross.layer.opacity = 1
+//            }
+//        }
+//    }
     
-    @objc private func crossKeyframesTap() {
-        UIView.animateKeyframes(withDuration: 0.8, delay: 0) {
-            UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 0.7) {
-                self.cross.layer.opacity = 0
-            }
-            UIView.addKeyframe(withRelativeStartTime: 0.7, relativeDuration: 1) {
-                self.newView.layer.opacity = 0
-                let avatarWidth: CGFloat = 150
-                self.leadingAvatar.constant = 16
-                self.topAvatar.constant = 16
-                self.widthAvatar.constant = avatarWidth
-                self.heightAvatar.constant = avatarWidth
-                self.avatar.layer.cornerRadius = 75
-                
-                self.avatar.layoutIfNeeded()
-                self.avatar.layer.opacity = 0
-            }
-        }
-    }
+//    @objc private func crossKeyframesTap() {
+//        UIView.animateKeyframes(withDuration: 0.8, delay: 0) {
+//            UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 0.7) {
+//                self.cross.layer.opacity = 0
+//            }
+//            UIView.addKeyframe(withRelativeStartTime: 0.7, relativeDuration: 1) {
+//                self.newView.layer.opacity = 0
+//                let avatarWidth: CGFloat = 150
+//                self.leadingAvatar.constant = 16
+//                self.topAvatar.constant = 16
+//                self.widthAvatar.constant = avatarWidth
+//                self.heightAvatar.constant = avatarWidth
+//                self.avatar.layer.cornerRadius = 75
+//
+//                self.avatar.layoutIfNeeded()
+//                self.avatar.layer.opacity = 0
+//            }
+//        }
+//    }
 
     //CaAnimation
 //    @objc private func CAAnimationTap() {
@@ -158,7 +133,7 @@ final class ProfileViewController: UIViewController {
 //    }
 
     private func layout() {
-        [tableView, newView, avatar, cross].forEach { view.addSubview($0) }
+        [tableView].forEach { view.addSubview($0) }
         let safeArea = view.safeAreaLayoutGuide
         NSLayoutConstraint.activate([
             tableView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor),
@@ -166,22 +141,22 @@ final class ProfileViewController: UIViewController {
             tableView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor),
             tableView.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor),
             
-            newView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor),
-            newView.topAnchor.constraint(equalTo: safeArea.topAnchor),
-            newView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor),
-            newView.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor),
-            
-            cross.trailingAnchor.constraint(equalTo: avatar.trailingAnchor, constant: -32),
-            cross.topAnchor.constraint(equalTo: avatar.topAnchor, constant: 32),
-            cross.widthAnchor.constraint(equalToConstant: 60),
-            cross.heightAnchor.constraint(equalToConstant: 60)
-            
+//            newView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor),
+//            newView.topAnchor.constraint(equalTo: safeArea.topAnchor),
+//            newView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor),
+//            newView.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor),
+//
+//            cross.trailingAnchor.constraint(equalTo: avatar.trailingAnchor, constant: -32),
+//            cross.topAnchor.constraint(equalTo: avatar.topAnchor, constant: 32),
+//            cross.widthAnchor.constraint(equalToConstant: 60),
+//            cross.heightAnchor.constraint(equalToConstant: 60)
+//
         ])
-        leadingAvatar = avatar.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 16)
-        topAvatar = avatar.topAnchor.constraint(equalTo: safeArea.topAnchor, constant: 16)
-        widthAvatar = avatar.widthAnchor.constraint(equalToConstant: 150)
-        heightAvatar = avatar.heightAnchor.constraint(equalToConstant: 150)
-        NSLayoutConstraint.activate([leadingAvatar, topAvatar, widthAvatar, heightAvatar])
+//        leadingAvatar = avatar.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 16)
+//        topAvatar = avatar.topAnchor.constraint(equalTo: safeArea.topAnchor, constant: 16)
+//        widthAvatar = avatar.widthAnchor.constraint(equalToConstant: 150)
+//        heightAvatar = avatar.heightAnchor.constraint(equalToConstant: 150)
+//        NSLayoutConstraint.activate([leadingAvatar, topAvatar, widthAvatar, heightAvatar])
     }
 
 }
@@ -215,8 +190,6 @@ extension ProfileViewController: UITableViewDelegate {
 
 
 extension ProfileViewController: UITableViewDataSource{
-    
-    
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         if section == 0 {
