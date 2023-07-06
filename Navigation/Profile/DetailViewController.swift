@@ -52,7 +52,7 @@ final class DetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         layout()
-        view.backgroundColor = .systemGray4
+        view.backgroundColor = .white
     }
     
 //MARK: - Metods
