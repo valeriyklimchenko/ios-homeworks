@@ -160,8 +160,12 @@ extension ProfileViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section == 0 {
-            let vc = PhotoViewController()
-            navigationController?.pushViewController(vc, animated: false)
+            let photoVC = PhotoViewController()
+            navigationController?.pushViewController(photoVC, animated: false)
+        } else {
+            let detailVC = DetailViewController()
+            detailVC.setupDetailVC(model: postModel[indexPath.row], indexPath: indexPath)
+            present(detailVC, animated: true)
         }
     }
 
