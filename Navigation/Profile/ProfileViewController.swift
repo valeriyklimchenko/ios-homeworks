@@ -16,7 +16,7 @@ final class ProfileViewController: UIViewController {
     
     var postModel = PostModel.makePostModel()
     
-    let avatar: UIImageView = {
+    private let avatar: UIImageView = {
         var view = UIImageView()
         view.layer.borderColor = UIColor.white.cgColor
         view.layer.borderWidth = 3
@@ -26,7 +26,7 @@ final class ProfileViewController: UIViewController {
         return view
     }()
 
-    let closeButton: UIButton = {
+    private let closeButton: UIButton = {
         var view = UIButton(frame: CGRect(x: UIScreen.main.bounds.width - 66, y: 100, width: 50, height: 50))
         view.setImage(UIImage(systemName: "xmark"), for: .normal)
         view.layer.opacity = 0

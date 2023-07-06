@@ -14,7 +14,7 @@ final class PhotoViewController: UIViewController {
     
     private var initialImageRect: CGRect = .zero
     
-    let closeButton: UIButton = {
+    private let closeButton: UIButton = {
         var view = UIButton(frame: CGRect(x: UIScreen.main.bounds.width - 66, y: 100, width: 50, height: 50))
         view.setImage(UIImage(systemName: "xmark"), for: .normal)
         view.layer.opacity = 0
@@ -101,7 +101,7 @@ final class PhotoViewController: UIViewController {
         }
     }
     
-    //MARK: Layout
+    //MARK: - Layout
     private func layout() {
         view.addSubview(collectionView)
         NSLayoutConstraint.activate([
@@ -150,6 +150,7 @@ extension PhotoViewController: UICollectionViewDelegateFlowLayout {
     }
 }
 
+//MARK: - CustomCollectionGaleryDelegate
 extension PhotoViewController: CustomCollectionGaleryDelegate {
     func protocolFnction(image: UIImage?, imageRect: CGRect, indexPath: IndexPath) {
         //frame
@@ -157,9 +158,6 @@ extension PhotoViewController: CustomCollectionGaleryDelegate {
 //        print(itemRect)
         initialImageRect = collectionView.convert(itemRect!.frame, to: collectionView.superview)
         openImageAnimation(image: image, rect: initialImageRect)
-        
-//        let theAttributes = collectionView.layoutAttributesForItem(at: indexPath)
-//        let cellFrameInSuperview = collectionView.convert(theAttributes.frame, to: collectionView.superview)
 
     }
 }
