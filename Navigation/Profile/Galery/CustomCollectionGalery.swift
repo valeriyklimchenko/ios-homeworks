@@ -7,8 +7,18 @@
 
 import UIKit
 
+protocol CustomCollectionGaleryDelegate: AnyObject {
+    func protocolFnction(image: UIImage?, imageRect: CGRect, indexPath: IndexPath)
+}
+
 final class CustomCollectionGalery: UICollectionViewCell {
         
+//MARK: - Private
+    
+    weak var delegate: CustomCollectionGaleryDelegate?
+    private var initialIndexPath = IndexPath()
+    
+    
     private let imageView: UIImageView = {
        let image = UIImageView()
         image.translatesAutoresizingMaskIntoConstraints = false
@@ -17,6 +27,7 @@ final class CustomCollectionGalery: UICollectionViewCell {
         return image
     }()
     
+//MARK: - Init
     override init(frame: CGRect) {
         super.init(frame: frame)
         layout()
@@ -27,49 +38,21 @@ final class CustomCollectionGalery: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+//MARK: - Gesture
     private func setupGesture() {
-        let imageViewTap = UITapGestureRecognizer(target: self, action: #selector(showImage))
+        let imagaTaoGesture = UITapGestureRecognizer(target: self, action: #selector(openImage))
         imageView.isUserInteractionEnabled = true
-        imageView.addGestureRecognizer(imageViewTap)
-        imageView.superview?.bringSubviewToFront(imageView)
+        imageView.addGestureRecognizer(imagaTaoGesture)
+//        imageView.superview?.bringSubviewToFront(imageView)
     }
     
-    //CaAnimation
-    @objc private func showImage() {
-        let finalPosition = CGPoint(x: PhotoViewController().view.frame.width/2, y: 8)
-        let finalSize = CGRect(x: 0, y: 0, width: PhotoViewController().view.bounds.width, height: PhotoViewController().view.bounds.width)
-//        let finalCornerRadius = view.bounds.width / 2
-//        let finalOpacity = 0.5
-        
-        let positionAnimation = CABasicAnimation(keyPath: #keyPath(CALayer.position))
-        positionAnimation.fromValue = imageView.center
-        positionAnimation.toValue = finalPosition
-        imageView.layer.position = finalPosition
-        
-        let sizeAnimation = CABasicAnimation(keyPath: #keyPath(CALayer.bounds))
-        sizeAnimation.fromValue = CGRect(x: 0, y: 0, width: imageView.bounds.width, height: imageView.bounds.height)
-        sizeAnimation.toValue = finalSize
-        imageView.layer.bounds = finalSize
-        
-//        let cornerRadiusAnimation = CABasicAnimation(keyPath: #keyPath(CALayer.cornerRadius))
-//        cornerRadiusAnimation.fromValue = avatar.layer.cornerRadius
-//        cornerRadiusAnimation.toValue = finalCornerRadius
-//        avatar.layer.cornerRadius = finalCornerRadius
-//
-//        let opacityAnimatuon = CABasicAnimation(keyPath: #keyPath(CALayer.opacity))
-//        opacityAnimatuon.fromValue = 0
-//        opacityAnimatuon.toValue = finalOpacity
-//        newView.layer.opacity = 0.5
-        
-        let groupAnimation = CAAnimationGroup()
-        groupAnimation.duration = 0.5
-        groupAnimation.animations = [positionAnimation, sizeAnimation]
-        groupAnimation.timingFunction = CAMediaTimingFunction(name: .easeInEaseOut)
-        imageView.layer.add(groupAnimation, forKey: nil)
-        
-//        newView.layer.add(opacityAnimatuon, forKey: nil)
+//MARK: - Actions
+    @objc private func openImage() {
+        delegate?.protocolFnction(image: imageView.image, imageRect: imageView.frame, indexPath: initialIndexPath)
     }
-
+    
+    
+//MARK: - Layout
 private func layout() {
     contentView.addSubview(imageView)
     NSLayoutConstraint.activate([
@@ -80,8 +63,12 @@ private func layout() {
     ])
 }
     
+//MARK: - Metods
     func setupCell(photosModel: PhotosModel) {
         imageView.image = UIImage(named: photosModel.photo)
     }
     
+    func setIndexPath(indexPath: IndexPath) {
+        initialIndexPath = indexPath
+    }
 }
