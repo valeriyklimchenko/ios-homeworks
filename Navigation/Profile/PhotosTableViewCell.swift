@@ -8,7 +8,7 @@
 import UIKit
 
 final class PhotosTableViewCell: UITableViewCell {
-    
+//MARK: - Properties
     private let arrow: UIImageView = {
         var view = UIImageView(image: UIImage(systemName: "arrow.right"))
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -46,7 +46,7 @@ final class PhotosTableViewCell: UITableViewCell {
     
     private var photoModel = PhotosModel.makePhotosModel()
     
-    //MARK: life cycle
+//    MARK: - Init
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         layout()
@@ -57,7 +57,11 @@ final class PhotosTableViewCell: UITableViewCell {
     }
 
     
-//MARK: private metods
+//MARK: - Funcs
+    func viewLabelCangeTextColor() {
+        
+    }
+//MARK: - Layout
     private func layout() {
         let inset: CGFloat = 0
         let photoLabelInset: CGFloat = 12
@@ -82,7 +86,7 @@ final class PhotosTableViewCell: UITableViewCell {
     
 }
 
-//MARK: UICollectionViewDataSource
+//MARK: - UICollectionViewDataSource
 extension PhotosTableViewCell: UICollectionViewDataSource {
     public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         photoModel.count
@@ -97,7 +101,7 @@ extension PhotosTableViewCell: UICollectionViewDataSource {
 
 }
 
-//MARK: UICollectionViewDelegateFlowLayout
+//MARK: - UICollectionViewDelegateFlowLayout
 extension UITableViewCell: UICollectionViewDelegateFlowLayout {
 
     private var insetMinimumInterItemSpasing: CGFloat { return 8 }

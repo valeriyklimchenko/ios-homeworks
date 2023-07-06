@@ -125,7 +125,7 @@ extension PhotoViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CustomCollectionGalery.identifier, for: indexPath) as! CustomCollectionGalery
         cell.setupCell(photosModel: PhotosModel(photo: String(indexPath.row + 1)))
-        cell.setIndexPath(indexPath: indexPath)
+        cell.setGaleryIndexPath(indexPath: indexPath)
         cell.delegate = self
         return cell
     }

@@ -43,7 +43,6 @@ final class CustomCollectionGalery: UICollectionViewCell {
         let imagaTaoGesture = UITapGestureRecognizer(target: self, action: #selector(openImage))
         imageView.isUserInteractionEnabled = true
         imageView.addGestureRecognizer(imagaTaoGesture)
-//        imageView.superview?.bringSubviewToFront(imageView)
     }
     
 //MARK: - Actions
@@ -68,7 +67,7 @@ private func layout() {
         imageView.image = UIImage(named: photosModel.photo)
     }
     
-    func setIndexPath(indexPath: IndexPath) {
+    func setGaleryIndexPath(indexPath: IndexPath) {
         initialIndexPath = indexPath
     }
 }

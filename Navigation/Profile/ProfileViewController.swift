@@ -49,11 +49,12 @@ final class ProfileViewController: UIViewController {
         tableView.register(PhotosTableViewCell.self, forCellReuseIdentifier: PhotosTableViewCell.identifier)
         tableView.dataSource = self
         tableView.delegate = self
+        
 
         return tableView
     }()
         
-    //MARK: - life cycle
+    //MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemGray6
@@ -68,20 +69,11 @@ final class ProfileViewController: UIViewController {
         closeButton.addGestureRecognizer(closeGesture)
     }
 
-    //MARK: - actions
+    //MARK: - Actions
     
     @objc private func closeAvatarAction() {
         closeAvatarAnimation(rect: initialRect)
     }
-    
-//    @objc private func oneMoreLike() {
-//        postModel[0].likes += 1
-////        self.postModel[indexPath.row].likes += 1
-////        print(postModel[indexPath.row].likes)
-//        tableView.reloadData()
-//
-//
-//    }
     
     @objc private func openImageAnimate(image: UIImage?, imageFrame: CGRect) {
         avatar.image = image
@@ -104,7 +96,7 @@ final class ProfileViewController: UIViewController {
 
     }
     
-    //MARK: private func
+    //MARK: - Funcs
         private func closeAvatarAnimation(rect: CGRect) {
             UIView.animate(withDuration: 0.3) {
                 self.closeButton.layer.opacity = 0
@@ -139,6 +131,17 @@ final class ProfileViewController: UIViewController {
 //MARK: - UITableViewDelegate
 extension ProfileViewController: UITableViewDelegate {
     
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        true
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            postModel.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .left)
+        }
+    }
+    
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
         //подписываюсь под делегат  хедера
@@ -163,9 +166,18 @@ extension ProfileViewController: UITableViewDelegate {
             let photoVC = PhotoViewController()
             navigationController?.pushViewController(photoVC, animated: false)
         } else {
+            
+            //Увеличиваем количество просмотров при открытии DetailView
+            if postModel[indexPath.row].isViewed == false {
+                postModel[indexPath.row].views += 1
+                postModel[indexPath.row].isViewed = true
+                tableView.reloadData()
+            }
             let detailVC = DetailViewController()
             detailVC.setupDetailVC(model: postModel[indexPath.row], indexPath: indexPath)
             present(detailVC, animated: true)
+            
+            
         }
     }
 
@@ -199,7 +211,9 @@ extension ProfileViewController: UITableViewDataSource{
             return cell
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: PostTableViewCell.identifier, for: indexPath) as! PostTableViewCell
+            cell.delegateLikes = self
             cell.setupCell(model: postModel[indexPath.row])
+            cell.setupPostTableViewIndexPath(indexPath: indexPath)
             return cell
         }
     }
@@ -219,4 +233,15 @@ extension ProfileViewController: ProfileTableHeaderViewDelegate {
         //в функцию анимации передаю картинку и ее координаты
         openImageAnimate(image: image, imageFrame: initialRect)
     }
+}
+
+extension ProfileViewController: PostTableViewCellDelegate {
+    func increseNumbersOfLikesDelegate(indexPath: IndexPath) {
+        postModel[indexPath.row].likes += 1
+        tableView.reloadData()
+    }
+    
+
+    
+    
 }

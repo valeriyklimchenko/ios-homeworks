@@ -6,10 +6,22 @@
 //
 
 import UIKit
+protocol PostTableViewCellDelegate: AnyObject {
+    func increseNumbersOfLikesDelegate(indexPath: IndexPath)
+}
 
 final class PostTableViewCell: UITableViewCell {
     
-    //MARK: private
+    //MARK: - Properties
+    weak var delegateLikes: PostTableViewCellDelegate?
+    
+    private var numberOfLikes: Int = 0
+    private var initialIndexPath = IndexPath()
+
+    
+    private var isViewed: Bool = false
+//    private var isLiked: Bool = false
+    
     private let whiteView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -47,9 +59,6 @@ final class PostTableViewCell: UITableViewCell {
         label.textColor = .black
         label.font = .systemFont(ofSize: 16, weight: .medium)
         label.numberOfLines = 2
-        
-//        label.addGestureRecognizer(UITapGestureRecognizer(target: PostTableViewCell.self, action: #selector(numberLikesIncrease)))
-//        label.isUserInteractionEnabled = true
         return label
     }()
     
@@ -59,11 +68,10 @@ final class PostTableViewCell: UITableViewCell {
         label.textColor = .black
         label.font = .systemFont(ofSize: 16, weight: .medium)
         label.numberOfLines = 2
-//        label.text = "Views: 333"
         return label
     }()
     
-    //MARK: life cycle    
+    //MARK: - Init
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         layout()
@@ -74,19 +82,20 @@ final class PostTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+//MARK: - Gestures
     private func setupGestures() {
-        let moreLikes = UITapGestureRecognizer(target: self, action: #selector(oneMoreLike))
+        let oneMoreLikes = UITapGestureRecognizer(target: self, action: #selector(oneMoreLike))
         likesLabel.isUserInteractionEnabled = true
-        likesLabel.addGestureRecognizer(moreLikes)
-//        viewsLabel.addGestureRecognizer(moreLikes)
+        likesLabel.addGestureRecognizer(oneMoreLikes)
         }
     
+//MARK: - Actions
     @objc private func oneMoreLike() {
+        delegateLikes?.increseNumbersOfLikesDelegate(indexPath: initialIndexPath)
         
-//        print(likesLabel.text)
-//        print("like")
     }
     
+//MARK: - Funcs
     override func prepareForReuse() {
         super.prepareForReuse()
         headerLabel.text = nil
@@ -96,19 +105,19 @@ final class PostTableViewCell: UITableViewCell {
         viewsLabel.text = nil
     }
     
-    //MARK: func
     func setupCell(model: PostModel) {
         headerLabel.text = model.author
         postImage.image = UIImage(named: model.image)
         descriptionLabel.text = model.description
         likesLabel.text = String("Likes: \(model.likes)")
         viewsLabel.text = String("Views \(model.views)")
+        if isViewed == true {
+            viewsLabel.textColor = .red
+        }
     }
-
-//MARK: private funcs
     
-    private func customiseCell() {
-        
+    func setupPostTableViewIndexPath(indexPath: IndexPath) {
+        initialIndexPath = indexPath
     }
     
     private func layout() {

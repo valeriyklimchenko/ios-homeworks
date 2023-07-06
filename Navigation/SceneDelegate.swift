@@ -24,8 +24,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         feedViewController.title = "Feed"
         feedViewController.tabBarItem.image = UIImage(systemName: "house.fill")
         
-//        let profileViewController = UINavigationController(rootViewController: LogInViewController())
-        let profileViewController = UINavigationController(rootViewController: ProfileViewController())
+        let profileViewController = UINavigationController(rootViewController: LogInViewController())
+//        let profileViewController = UINavigationController(rootViewController: ProfileViewController())
         profileViewController.title = "Profile"
         
         profileViewController.tabBarItem.image = UIImage(systemName: "person.fill")
@@ -34,8 +34,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         //Создаем TabBAr
         let tabBarController = UITabBarController()
         tabBarController.viewControllers = [profileViewController, feedViewController]
-//        tabBarController.viewControllers = [feedViewController, profileViewController]
-
 
         tabBarController.tabBarItem.title = "title"
         tabBarController.tabBar.backgroundColor = UIColor.systemGray

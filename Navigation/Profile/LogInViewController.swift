@@ -9,7 +9,7 @@ import UIKit
 
 class LogInViewController: UIViewController {
    
-    //MARK: private lets and vars
+    //MARK: - Properties
     private let scrollView: UIScrollView = {
         let view = UIScrollView()
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -82,7 +82,7 @@ class LogInViewController: UIViewController {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = .red
-        label.text = "Введите больше 4 символов"
+        label.text = "Пароль дожен содержать более 4 символов"
         label.isHidden = true
         label.font = UIFont(name: "sistem", size: 14)
         return label
@@ -112,32 +112,47 @@ class LogInViewController: UIViewController {
     }()
     
     
-    //MARK: life cycle
+    //MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
         view.backgroundColor = .white
         layout()
-//        self.navigationController?.navigationBar.isHidden = true
     }
     
+//MARK: - Funcs
+    func isValidEmail(_ email: String) -> Bool {
+        let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
+
+        let emailPred = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
+        return emailPred.evaluate(with: email)
+    }
     
-    //MARK: functions
+    //MARK: - Actions
     @objc func goToProfileViewController() {
         numberOfSymbols.isHidden = true
+        emailTextField.textColor = .black
         //Пустое поле - подернивание
         if emailTextField.text == "" {
             shakeAnimation(textField: emailTextField)
         }
-        if passwordTextField.text == "" {
+        else if passwordTextField.text == "" {
             shakeAnimation(textField: passwordTextField)
         }
         
         //Проверка на количество символов пароля
-        if (passwordTextField.text?.count ?? 0) < 4 {
+        else if (passwordTextField.text?.count ?? 0) < 4 {
             numberOfSymbols.isHidden = false
         }
-        //Успешная авторизация
+        
+        //Проверка валидности email
+        //Использую forseUnwrap потому что ароверка на пустое поле выше
+        else if isValidEmail(emailTextField.text!) == false {
+            print("no valid")
+            emailTextField.textColor = .red
+        }
+        
+//        Успешная авторизация
         else if emailTextField.text == "admin@mail.ru", passwordTextField.text == "1111" {
             navigationController?.pushViewController(ProfileViewController(), animated: true)
         } else {
@@ -162,7 +177,7 @@ class LogInViewController: UIViewController {
         
     }
 
-    
+//MARK: - Animations
     func shakeAnimation(textField: UITextField) {
         let animation = CABasicAnimation(keyPath: "position")
         animation.duration = 0.07
@@ -174,6 +189,7 @@ class LogInViewController: UIViewController {
         textField.layer.add(animation, forKey: "position")
     }
         
+//MARK: - Layout
     private func layout() {
         let safeArea = view.safeAreaLayoutGuide
         
@@ -241,7 +257,7 @@ class LogInViewController: UIViewController {
     
 }
 
-//MARK: extentions
+//MARK: - extentions
 extension LogInViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         view.endEditing(true)
